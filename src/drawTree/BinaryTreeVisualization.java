@@ -22,7 +22,7 @@ class TreeNodeWithDescendantNum
     }
 }
 
-abstract class TreeVisualization
+abstract class BinaryTreeVisualization
 {
     static double radius;
     static double yIncrement;

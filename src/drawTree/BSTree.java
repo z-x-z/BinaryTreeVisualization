@@ -1,7 +1,5 @@
 package drawTree;
 
-import java.util.Random;
-
 /**
  * @description: A BSTree (Binary Search Tree) implement
  * @project: Algorithms
@@ -39,7 +37,7 @@ public class BSTree
 
     void draw()
     {
-        TreeVisualization.visualizeCore(root);
+        BinaryTreeVisualization.visualizeCore(root);
     }
 
     void preOrder(){if(root!=null) root.preOrder();}

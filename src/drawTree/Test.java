@@ -1,5 +1,8 @@
 package drawTree;
 
+import edu.princeton.cs.algs4.StdDraw;
+
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -12,14 +15,17 @@ public class Test
 {
     public static void main(String[] args)
     {
-        Random random = new Random();
-        final int num = 100;
-        BSTree bsTree= new BSTree();
-        for(int i = 0; i < num; i++)
+        Random random = new Random(127);
+        final int randIntNum = 30;
+        BSTree bsTree = new BSTree();
+        AVLTree avlTree = new AVLTree();
+        for(int i = 0; i < randIntNum; i++)
         {
-            int randi = random.nextInt();
-            bsTree.insert(randi);
+            int num = random.nextInt(200);
+//            bsTree.insert(num);
+            avlTree.insert(num);
         }
+        avlTree.draw();
         bsTree.draw();
     }
 }

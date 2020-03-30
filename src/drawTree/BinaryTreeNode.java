@@ -8,11 +8,13 @@ package drawTree;
  **/
 
 
+
 public class BinaryTreeNode
 {
     int val;
     BinaryTreeNode left;
     BinaryTreeNode right;
+
 
     public BinaryTreeNode(int x)
     {
@@ -21,9 +23,9 @@ public class BinaryTreeNode
 
     public void preOrder()
     {
-        System.out.print(val+" ");
-        if(left!=null) left.preOrder();
-        if(right!=null) right.preOrder();
+        System.out.print(val + " ");
+        if(left != null) left.preOrder();
+        if(right != null) right.preOrder();
     }
 
 }

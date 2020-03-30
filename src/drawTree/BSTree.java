@@ -8,36 +8,23 @@ package drawTree;
  **/
 public class BSTree
 {
-    BinaryTreeNode root;
+    BSTreeNode root;
+
     void insert(int val)
     {
-        root = insertHelper(root, val);
+        root = BSTreeNode.insertHelper(root, val);
     }
-    static BinaryTreeNode insertHelper(BinaryTreeNode node, int val)
-    {
-        if(node==null)  node = new BSTreeNode(val);
-        else
-        {
-            if(val>node.val) node.right = insertHelper(node.right, val);
-            else if(val<node.val) node.left = insertHelper(node.left, val);
-        }
-        return (BSTreeNode) node;
-    }
+
     boolean find(int val)
     {
-        BinaryTreeNode node = root;
-        while(node!=null)
-        {
-            if(val > node.val) node = node.right;
-            else if(val<node.val) node = node.left;
-            else return true;
-        }
-        return false;
+        if(root==null) return false;
+        return root.find(val);
     }
+
 
     void draw()
     {
-        BinaryTreeVisualization.visualizeCore(root);
+        if(root!=null) BinaryTreeVisualization.visualize(root);
     }
 
     void preOrder(){if(root!=null) root.preOrder();}
@@ -51,4 +38,30 @@ class BSTreeNode extends BinaryTreeNode
         super(x);
     }
 
+    public void insert(int val)
+    {
+        insertHelper(this, val);
+    }
+    static BSTreeNode insertHelper(BinaryTreeNode node, int val)
+    {
+        if(node==null)  node = new BSTreeNode(val);
+        else
+        {
+            if(val>node.val) node.right = insertHelper(node.right, val);
+            else if(val<node.val) node.left = insertHelper(node.left, val);
+        }
+        return (BSTreeNode) node;
+    }
+
+    public boolean find(int val)
+    {
+        BinaryTreeNode node = this;
+        while(node!=null)
+        {
+            if(val > node.val) node = node.right;
+            else if(val<node.val) node = node.left;
+            else return true;
+        }
+        return false;
+    }
 }

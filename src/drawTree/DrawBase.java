@@ -36,7 +36,7 @@ class Point extends figureWithPoint
 
     void draw()
     {
-        Draw.drawPoint(x, y);
+        DrawBase.drawPoint(x, y);
     }
 }
 
@@ -52,11 +52,11 @@ class Circle extends figureWithPoint
 
     void draw()
     {
-        Draw.drawCircle(x, y, r);
+        DrawBase.drawCircle(x, y, r);
     }
 }
 
-public class Draw
+public class DrawBase
 {
     static final int DEFAULT_CANVAS_Size = 400;
 
@@ -119,8 +119,8 @@ public class Draw
         //  Two circleCenters are on the same vertical line, so the slope has no meaning.
         if(Math.abs(c1.x-c2.x) < 1e-6)
         {
-            if(c2.y > c1.y) Draw.drawLine(c1.x, c1.y+c1.r, c2.x, c2.y-c2.r);
-            else Draw.drawLine(c1.x, c1.y-c1.r, c2.x, c2.y+c2.r);
+            if(c2.y > c1.y) DrawBase.drawLine(c1.x, c1.y+c1.r, c2.x, c2.y-c2.r);
+            else DrawBase.drawLine(c1.x, c1.y-c1.r, c2.x, c2.y+c2.r);
             return;
         }
 
@@ -143,7 +143,7 @@ public class Draw
         p1y += b1y * c1.r * k / rk;
         p2x += b2x * c2.r / rk;
         p2y += b2y * c2.r * k / rk;
-        Draw.drawLine(p1x, p1y, p2x, p2y);
+        DrawBase.drawLine(p1x, p1y, p2x, p2y);
     }
 
 }

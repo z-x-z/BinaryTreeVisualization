@@ -8,6 +8,8 @@ import edu.princeton.cs.algs4.StdDraw;
  * @author: caged_bird
  * @Create: 2020-03-19 23:28
  **/
+
+
 class TreeNodeWithDescendantNum
 {
     TreeNodeWithDescendantNum left;
@@ -27,7 +29,7 @@ abstract class BinaryTreeVisualization
     static double radius;
     static double yIncrement;
     static boolean isDrawNodeVal;
-    static boolean isDrawTreeInfo = true;
+    static boolean isPintTreeInfo = true;
     static int levels = 0;
     static int treeNodeNum = 0;
 
@@ -45,6 +47,7 @@ abstract class BinaryTreeVisualization
         return newNode;
     }
 
+
     // preorder traversal the tree
     static Point visualizeHelperPoint(TreeNodeWithDescendantNum root,  double leftBound, double rightBound, double y)
     {
@@ -55,17 +58,17 @@ abstract class BinaryTreeVisualization
         if(leftNum + rightNum != 0) ratio = 1. * leftNum / (leftNum + rightNum);
         double x = leftBound + (rightBound - leftBound) * (ratio);
         Point point = new Point(x, y);
-        Draw.drawPoint(x, y);
+        DrawBase.drawPoint(x, y);
         if(root.left != null)
         {
             Point leftPoint = visualizeHelperPoint(root.left, leftBound, x - 3 * radius, y - yIncrement - 2 * radius);
-            Draw.drawLine(point, leftPoint);
+            DrawBase.drawLine(point, leftPoint);
         }
         if(root.right != null)
         {
 
             Point rightPoint = visualizeHelperPoint(root.right, x + 3 * radius, rightBound, y - yIncrement - 2 * radius);
-            Draw.drawLine(point, rightPoint);
+            DrawBase.drawLine(point, rightPoint);
         }
         return point;
     }
@@ -79,18 +82,18 @@ abstract class BinaryTreeVisualization
         if(leftNum + rightNum != 0) ratio = 1. * leftNum / (leftNum + rightNum);
         double x = leftBound + (rightBound - leftBound) * (ratio);
         Circle circle = new Circle(x, y, radius);
-        Draw.drawCircle(x, y, radius);
+        DrawBase.drawCircle(x, y, radius);
         if(isDrawNodeVal) StdDraw.text(x, y, String.valueOf(root.val));
         if(root.left != null)
         {
             Circle leftCircle = visualizeHelperCircle(root.left, leftBound, x - 3 * radius, y - yIncrement - 2 * radius);
-            Draw.drawLineTwoCircle(circle, leftCircle);
+            DrawBase.drawLineTwoCircle(circle, leftCircle);
         }
         if(root.right != null)
         {
 
             Circle rightCircle = visualizeHelperCircle(root.right, x + 3 * radius, rightBound, y - yIncrement - 2 * radius);
-            Draw.drawLineTwoCircle(circle, rightCircle);
+            DrawBase.drawLineTwoCircle(circle, rightCircle);
         }
         return circle;
     }
@@ -109,36 +112,42 @@ abstract class BinaryTreeVisualization
 
         // To confirm the text font according to calculated radius and canvasSize
         int canvasSize;
-        if(treeNodeNum<=40) canvasSize = Draw.DEFAULT_CANVAS_Size;
-        else if(treeNodeNum<80) canvasSize = Draw.DEFAULT_CANVAS_Size * treeNodeNum / 40;
-        else canvasSize = 2 * Draw.DEFAULT_CANVAS_Size;
-        Draw.setCanvasSize(canvasSize, canvasSize);
-        int fontSize = (int) (300 * radius * (canvasSize / Draw.DEFAULT_CANVAS_Size));
-        isDrawNodeVal = fontSize > 6;
-        Draw.setFontSize(fontSize);
+        if(treeNodeNum<=40) canvasSize = DrawBase.DEFAULT_CANVAS_Size;
+        else if(treeNodeNum<80) canvasSize = DrawBase.DEFAULT_CANVAS_Size * treeNodeNum / 40;
+        else canvasSize = 2 * DrawBase.DEFAULT_CANVAS_Size;
+        DrawBase.setCanvasSize(canvasSize, canvasSize);
+        int fontSize = (int) (300 * radius * (canvasSize / DrawBase.DEFAULT_CANVAS_Size));
+        isDrawNodeVal = treeNodeNum <= 30;
+        fontSize = fontSize > 9 ? fontSize : 10;
+        DrawBase.setFontSize(fontSize);
     }
 
 
-    static void drawTreeInfo()
+    static void printTreeInfo()
     {
-//        Need To do
-//        Draw.drawText(0.1,1.- yIncrement/4, "Tree node num: "+treeNodeNum);
-//        Draw.drawText(0.1, 1.-yIncrement-2*radius, "Tree height:"+levels);
+        System.out.println("Tree node num: "+treeNodeNum);
+        System.out.println("Tree height: "+ levels);
     }
 
-    public static void visualizeCore(BinaryTreeNode root)
+    public static void visualizeCore(TreeNodeWithDescendantNum treeNodeWithDescendantNum)
     {
-        if(root == null) return;
-        // Previous calculation to get tree levels and width
-        TreeNodeWithDescendantNum treeNodeWithDescendantNum = preProcess(root, 1);
-
         // Init parameter
         initParameter(treeNodeWithDescendantNum);
 
-        if(isDrawTreeInfo) drawTreeInfo();
+        if(isPintTreeInfo) printTreeInfo();
         // PreOrder travel and draw the whole tree
-        visualizeHelper(treeNodeWithDescendantNum,
-                0 + 1.5 * radius, 1 - 1.5 * radius,
-                1 - (yIncrement / 2) - radius);
+        double initLeftBound = 0. + 1.5 * radius;
+        double initRightBound = 1 - 1.5 * radius;
+        double initYCoordinate = 1 - (yIncrement / 2) - radius;
+        visualizeHelper(treeNodeWithDescendantNum, initLeftBound, initRightBound, initYCoordinate);
     }
+
+    public static void visualize(BinaryTreeNode node)
+    {
+        TreeNodeWithDescendantNum treeNodeWithDescendantNum = preProcess(node, 1);
+        visualizeCore(treeNodeWithDescendantNum);
+    }
+
+
+
 }
